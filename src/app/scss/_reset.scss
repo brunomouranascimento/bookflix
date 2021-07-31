@@ -1,0 +1,31 @@
+* {
+  font-family: "Roboto", sans-serif;
+  text-rendering: optimizeLegibility;
+
+  &:active,
+  :focus {
+    outline: none !important;
+  }
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background-color: #f1f3f6;
+  overflow: hidden;
+}
+
+label {
+  margin-bottom: 0;
+}
+
+p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
