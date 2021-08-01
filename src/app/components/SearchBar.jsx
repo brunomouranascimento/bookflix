@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Container, Row, InputGroup, FormControl } from "react-bootstrap";
 
-export default function SearchBar() {
+export default function SearchBar(props) {
+  const [term, setTerm] = useState("");
+
   return (
     <Container>
       <Row>
         <h1 className="flex">Bookflix</h1>
         <InputGroup className="mb-3">
-          <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
           <FormControl
-            placeholder="Username"
-            aria-label="Username"
-            aria-describedby="basic-addon1"
+            placeholder="Buscar livros, autores e editoras"
+            aria-label="Books"
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
+            onKeyPress={(event) =>
+              event.key === "Enter" && term !== "" && props.onSearch(term)
+            }
           />
         </InputGroup>
       </Row>
