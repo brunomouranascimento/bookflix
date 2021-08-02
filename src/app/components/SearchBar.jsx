@@ -7,8 +7,8 @@ export default function SearchBar(props) {
 
   return (
     <>
-      <h1 className="flex">Bookflix</h1>
-      <InputGroup className="mb-3">
+      <h1 className="d-flex justify-content-center">Bookflix</h1>
+      <InputGroup className="mb-3 px-5">
         <FormControl
           placeholder="Buscar livros, autores e editoras"
           aria-label="Books"
