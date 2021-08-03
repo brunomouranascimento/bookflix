@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 
-import { InputGroup, FormControl } from "react-bootstrap";
+import { InputGroup, FormControl, Button } from "react-bootstrap";
 
 export default function SearchBar(props) {
   const [term, setTerm] = useState("");
 
   return (
     <>
-      <h1 className="d-flex justify-content-center">Bookflix</h1>
-      <InputGroup className="mb-3 px-5">
+      <h1 className="d-flex justify-content-center">BOOKFLIX</h1>
+      <InputGroup className="my-3">
         <FormControl
+          className="mx-4"
           placeholder="Buscar livros, autores e editoras"
           aria-label="Books"
           value={term}
@@ -19,6 +20,18 @@ export default function SearchBar(props) {
           }
         />
       </InputGroup>
+      <div className="d-flex justify-content-center mb-4">
+        <Button variant="light" className="px-4" onClick={() => setTerm("")}>
+          Limpar
+        </Button>{" "}
+        <Button
+          onClick={() => term !== "" && props.onSearch(term)}
+          variant="primary"
+          className="ml-3 px-4"
+        >
+          Buscar
+        </Button>{" "}
+      </div>
     </>
   );
 }
