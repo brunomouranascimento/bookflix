@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-
 import { InputGroup, FormControl, Button } from "react-bootstrap";
+
+import styles from "./SearchBar.module.scss";
 
 export default function SearchBar(props) {
   const [term, setTerm] = useState("");
 
   return (
-    <>
+    <div className={styles.searchBar}>
       <h1 className="d-flex justify-content-center">BOOKFLIX</h1>
-      <InputGroup className="my-3">
+      <InputGroup className={`my-3 ${styles.inputWrapper}`}>
         <FormControl
-          className="mx-4"
+          className={`mx-4 ${styles.input}`}
           placeholder="Buscar livros e autores"
           aria-label="Books"
           value={term}
@@ -46,6 +47,6 @@ export default function SearchBar(props) {
           Buscar
         </Button>{" "}
       </div>
-    </>
+    </div>
   );
 }

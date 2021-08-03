@@ -1,0 +1,10 @@
+.searchBar {
+  .inputWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .input {
+      max-width: 50vh;
+    }
+  }
+}
