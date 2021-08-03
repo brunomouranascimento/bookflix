@@ -47,6 +47,11 @@ export default function Home() {
     search(term, page);
   };
 
+  const clearResults = (event, page) => {
+    setTerm("");
+    setBooks([]);
+  };
+
   return (
     <Container fluid="xl" className={`min-vh-100 ${styles.bookflixWrapper}`}>
       <Notifications />
@@ -55,7 +60,12 @@ export default function Home() {
           books.length ? styles.withResults : styles.noResults
         }`}
       >
-        <SearchBar onSearch={(searchTerm) => search(searchTerm)} />
+        <SearchBar
+          onSearch={(searchTerm) => search(searchTerm)}
+          hasResult={books.length > 0}
+          clearResults={() => clearResults()}
+          term={term}
+        />
         <BooksList
           totalBooks={totalBooks}
           books={books}

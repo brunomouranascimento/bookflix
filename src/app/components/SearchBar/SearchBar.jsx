@@ -21,9 +21,23 @@ export default function SearchBar(props) {
         />
       </InputGroup>
       <div className="d-flex justify-content-center mb-4">
-        <Button variant="light" className="px-4" onClick={() => setTerm("")}>
-          Limpar
-        </Button>{" "}
+        {!props.hasResult && (
+          <Button variant="light" className="px-4" onClick={() => setTerm("")}>
+            Limpar
+          </Button>
+        )}
+        {props.hasResult && (
+          <Button
+            variant="light"
+            className="px-4"
+            onClick={() => {
+              props.clearResults("");
+              setTerm("");
+            }}
+          >
+            Limpar resultados
+          </Button>
+        )}
         <Button
           onClick={() => term !== "" && props.onSearch(term)}
           variant="primary"
