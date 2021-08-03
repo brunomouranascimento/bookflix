@@ -14,6 +14,15 @@
 
 @media only screen and (max-width: 600px) {
   .book {
+    .bookImage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .bookInfo {
+      text-align: center;
+    }
     .description {
       display: none;
     }

@@ -1,6 +1,6 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 
-import { useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import { Container, Row } from "react-bootstrap";
 import Notifications, { notify } from "react-notify-toast";
@@ -17,71 +17,97 @@ export default function Home() {
   const [books, setBooks] = useState([]);
   const [totalBooks, setTotalBooks] = useState(0);
   const [actualPage, setActualPage] = useState(1);
+  const [loadingParams, setLoadingParams] = useState(false);
+
+  const { searchTerms, page } = useParams();
+
   const history = useHistory();
 
   const getStartIndex = (page) => {
     return page === 1 ? 0 : page * 20 - 20;
   };
 
-  const search = useCallback(async (searchTerm, page = 1) => {
-    const response = await booksService.searchBooks(
-      searchTerm,
-      getStartIndex(page)
-    );
-    if (response?.totalItems > 0) {
-      window.scrollTo(0, 0);
-      setTerm(searchTerm);
-      setBooks([]);
-      setBooks(response.items);
-      setTotalBooks(response.totalItems);
-      setActualPage(page);
-    } else if (response.totalItems === 0) {
-      setTerm(searchTerm);
-      setBooks([]);
-      notify.show(
-        "Nenhum livro encontrado com os parâmetros de sua pesquisa",
-        "warning"
+  const search = useCallback(
+    async (searchTerm, page = 1) => {
+      history.push(`/results/${searchTerm}/${page}`);
+      const response = await booksService.searchBooks(
+        searchTerm,
+        getStartIndex(page)
       );
-    } else {
-      notify.show(response, "error");
-    }
-  }, []);
+      if (response?.totalItems > 0) {
+        window.scrollTo(0, 0);
+        setLoadingParams(false);
+        setTerm(searchTerm);
+        setBooks([]);
+        setBooks(response.items);
+        setTotalBooks(response.totalItems);
+        setActualPage(Number(page));
+      } else if (response.totalItems === 0) {
+        setTerm(searchTerm);
+        setBooks([]);
+        notify.show(
+          "Nenhum livro encontrado com os parâmetros de sua pesquisa",
+          "warning"
+        );
+      } else {
+        notify.show(response, "error");
+      }
+    },
+    [history]
+  );
 
-  const handlePage = (event, page) => {
+  const handlePage = (page) => {
     search(term, page);
   };
 
-  const clearResults = (event, page) => {
+  const clearResults = () => {
     setTerm("");
     setBooks([]);
+    history.push("/");
   };
 
   const getBook = (bookId) => {
+    window.scrollTo(0, 0);
     history.push(`/${bookId}`);
   };
+
+  const checkRouteParam = useCallback(() => {
+    setLoadingParams(true);
+    if (searchTerms && page) {
+      search(searchTerms, Number(page));
+    } else {
+      setLoadingParams(false);
+    }
+  }, [page, search, searchTerms]);
+
+  useEffect(() => {
+    checkRouteParam();
+  }, [checkRouteParam]);
 
   return (
     <Container fluid="xl" className={`min-vh-100 ${styles.bookflixWrapper}`}>
       <Notifications />
-      <Row
-        className={`mx-auto ${
-          books.length ? styles.withResults : styles.noResults
-        }`}
-      >
-        <SearchBar
-          onSearch={(searchTerm) => search(searchTerm)}
-          hasResult={books.length > 0}
-          clearResults={() => clearResults()}
-          term={term}
-        />
-        <BooksList
-          totalBooks={totalBooks}
-          books={books}
-          activePage={actualPage}
-          pageClick={(event, page) => handlePage(event, page)}
-          getBook={(bookId) => getBook(bookId)}
-        />
-      </Row>
+      {!loadingParams && (
+        <Row
+          className={`mx-auto ${
+            books.length ? styles.withResults : styles.noResults
+          }`}
+        >
+          <SearchBar
+            onSearch={(searchTerm) => search(searchTerm)}
+            hasResult={books.length > 0}
+            clearResults={() => clearResults()}
+            term={term}
+          />
+          <BooksList
+            totalBooks={totalBooks}
+            books={books}
+            activePage={actualPage}
+            pageClick={(event, page) => handlePage(event, page)}
+            getBook={(bookId) => getBook(bookId)}
+          />
+        </Row>
+      )}
     </Container>
   );
 }

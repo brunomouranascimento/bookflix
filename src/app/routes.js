@@ -7,6 +7,7 @@ import Book from "./pages/Book/Book";
 const Routes = () => (
   <Router>
     <Switch>
+      <Route path="/results/:searchTerms/:page" component={Home} />
       <Route path="/:id" component={Book} />
       <Route path="/" component={Home} />
     </Switch>

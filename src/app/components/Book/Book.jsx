@@ -14,8 +14,9 @@ export default function Book(props) {
       <Row>
         <Col>
           <Row>
-            <Col>
+            <Col className={styles.bookImage}>
               <img
+                className="mb-3"
                 src={
                   props.book.volumeInfo.imageLinks?.smallThumbnail
                     ? props.book.volumeInfo.imageLinks?.smallThumbnail
@@ -24,7 +25,9 @@ export default function Book(props) {
                 alt="capa do livro"
               />
             </Col>
-            <Col className="d-flex flex-column justify-content-center align-content-start">
+            <Col
+              className={`d-flex flex-column justify-content-center align-content-start ${styles.bookInfo}`}
+            >
               <small>
                 <strong>Título:</strong>
                 {props.book.volumeInfo?.title}
