@@ -1,22 +1,17 @@
 import React from "react";
 
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 import styles from "./Books.module.scss";
 
 export default function Book(props) {
   return (
-    <Container
-      fluid="md"
-      className={`${styles.book}`}
-      onClick={() => props.onClick()}
-    >
-      <Row>
+    <Container fluid="md" className={`${styles.book}`}>
+      <Row className={`${styles.bookWrapper}`}>
         <Col>
           <Row>
             <Col className={styles.bookImage}>
               <img
-                className="mb-3"
                 src={
                   props.book.volumeInfo.imageLinks?.smallThumbnail
                     ? props.book.volumeInfo.imageLinks?.smallThumbnail
@@ -47,11 +42,17 @@ export default function Book(props) {
             </Col>
           </Row>
         </Col>
-        <Col className={`${styles.description}`}>
-          <strong>Descrição: </strong>
-          {props.book.volumeInfo?.description
-            ? props.book.volumeInfo?.description
-            : "Descrição não fornecida"}
+        <Col className={`${styles.favButton} mt-3`}>
+          <Button variant="warning" className="ml-3 px-4">
+            Favoritar
+          </Button>{" "}
+          <Button
+            variant="primary"
+            className="ml-3 px-4"
+            onClick={() => props.onClick()}
+          >
+            Detalhes
+          </Button>{" "}
         </Col>
       </Row>
     </Container>

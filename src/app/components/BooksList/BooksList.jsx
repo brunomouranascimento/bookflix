@@ -16,7 +16,7 @@ export default function BooksList(props) {
           />
         ))}
       {props.books?.length > 0 && (
-        <Pagination className="justify-content-md-center">
+        <Pagination className="justify-content-md-center mt-5">
           <Pagination.First onClick={props.goFirst} />
           <Pagination.Prev onClick={props.goPrev} />
           {Array.apply(null, { length: Math.ceil(props.totalBooks / 20) }).map(

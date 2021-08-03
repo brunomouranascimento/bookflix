@@ -1,16 +1,18 @@
 import React, { useCallback, useState, useEffect } from "react";
 
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
-import { Container, Row, Col } from "react-bootstrap";
-
+import { Container, Row, Col, Button } from "react-bootstrap";
 import Notifications, { notify } from "react-notify-toast";
+
+import styles from "./Book.module.scss";
 
 import { booksService } from "../../services/book.services";
 
 export default function Book() {
   const [book, setBook] = useState();
   const { id } = useParams();
+  const history = useHistory();
 
   const getBook = useCallback(async () => {
     window.scrollTo(0, 0);
@@ -25,6 +27,10 @@ export default function Book() {
   useEffect(() => {
     getBook();
   }, [getBook]);
+
+  const back = () => {
+    history.goBack();
+  };
 
   return (
     <Container fluid="xl" className="min-vh-100 mt-5">
@@ -76,6 +82,14 @@ export default function Book() {
           </Row>
         </>
       )}
+      <Button
+        className={styles.backButton}
+        variant="primary"
+        onClick={() => back()}
+      >
+        <i class="fas fa-chevron-left mr-3"></i>
+        <i className="fas fa-home"></i>
+      </Button>
     </Container>
   );
 }

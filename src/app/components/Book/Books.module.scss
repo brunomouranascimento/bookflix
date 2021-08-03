@@ -1,14 +1,19 @@
 .book {
-  cursor: pointer;
   border-bottom: solid 1px #ebebeb;
   padding: 15px 0;
 
-  &:hover {
-    background-color: #cccccc;
-  }
-  &:last-of-type {
-    border-bottom: 0;
-    padding-bottom: 30px;
+  .bookWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:last-of-type {
+      border-bottom: 0;
+    }
+
+    .favButton {
+      z-index: 2;
+    }
   }
 }
 
