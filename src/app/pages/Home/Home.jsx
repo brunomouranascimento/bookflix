@@ -4,8 +4,8 @@ import Notifications, { notify } from "react-notify-toast";
 
 import styles from "./Home.module.scss";
 
-import SearchBar from "../../components/SearchBar";
-import BooksList from "../../components/BooksList";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import BooksList from "../../components/BooksList/BooksList";
 
 import { booksService } from "../../services/book.services";
 
@@ -24,13 +24,20 @@ export default function Home() {
       searchTerm,
       getStartIndex(page)
     );
-    if (response?.items) {
+    if (response?.totalItems > 0) {
       setTerm(searchTerm);
       setBooks([]);
       setBooks(response.items);
       setTotalBooks(response.totalItems);
       setActualPage(page);
       window.scrollTo(0, 0);
+    } else if (response.totalItems === 0) {
+      setTerm(searchTerm);
+      setBooks([]);
+      notify.show(
+        "Nenhum livro encontrado com os parâmetros de sua pesquisa",
+        "warning"
+      );
     } else {
       notify.show(response, "error");
     }

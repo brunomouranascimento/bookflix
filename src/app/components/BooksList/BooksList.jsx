@@ -1,7 +1,7 @@
 import React from "react";
 import Pagination from "react-bootstrap/Pagination";
 
-import Book from "./Book";
+import Book from "../Book/Book";
 
 export default function BooksList(props) {
   return (

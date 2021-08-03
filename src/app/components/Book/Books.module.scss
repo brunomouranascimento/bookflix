@@ -1,0 +1,21 @@
+.book {
+  cursor: pointer;
+  border-bottom: solid 1px #ebebeb;
+  padding: 15px 0;
+
+  &:hover {
+    background-color: #cccccc;
+  }
+  &:last-of-type {
+    border-bottom: 0;
+    padding-bottom: 30px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .book {
+    .description {
+      display: none;
+    }
+  }
+}

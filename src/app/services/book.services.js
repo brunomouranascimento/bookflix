@@ -11,7 +11,7 @@ const api = axios.create({
 async function searchBooks(term, startIndex) {
   try {
     const response = await api.get(
-      `/volumes?q=${term}+inauthor:${term}+inpublisher:${term}&maxResults=20&startIndex=${startIndex}&key=${process.env.REACT_APP_API_KEY}`
+      `/volumes?q=${term}+inauthor:${term}+intitle:${term}+inpublisher:${term}&maxResults=20&startIndex=${startIndex}&key=${process.env.REACT_APP_API_KEY}`
     );
     return response.data;
   } catch (error) {

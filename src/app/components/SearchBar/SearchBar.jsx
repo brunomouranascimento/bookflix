@@ -11,7 +11,7 @@ export default function SearchBar(props) {
       <InputGroup className="my-3">
         <FormControl
           className="mx-4"
-          placeholder="Buscar livros, autores e editoras"
+          placeholder="Buscar livros e autores"
           aria-label="Books"
           value={term}
           onChange={(e) => setTerm(e.target.value)}
