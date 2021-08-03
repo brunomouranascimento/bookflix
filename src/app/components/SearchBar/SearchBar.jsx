@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { InputGroup, FormControl, Button } from "react-bootstrap";
 
 import styles from "./SearchBar.module.scss";

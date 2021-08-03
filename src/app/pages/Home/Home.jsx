@@ -1,4 +1,7 @@
 import React, { useState, useCallback } from "react";
+
+import { useHistory } from "react-router-dom";
+
 import { Container, Row } from "react-bootstrap";
 import Notifications, { notify } from "react-notify-toast";
 
@@ -14,6 +17,7 @@ export default function Home() {
   const [books, setBooks] = useState([]);
   const [totalBooks, setTotalBooks] = useState(0);
   const [actualPage, setActualPage] = useState(1);
+  const history = useHistory();
 
   const getStartIndex = (page) => {
     return page === 1 ? 0 : page * 20 - 20;
@@ -25,12 +29,12 @@ export default function Home() {
       getStartIndex(page)
     );
     if (response?.totalItems > 0) {
+      window.scrollTo(0, 0);
       setTerm(searchTerm);
       setBooks([]);
       setBooks(response.items);
       setTotalBooks(response.totalItems);
       setActualPage(page);
-      window.scrollTo(0, 0);
     } else if (response.totalItems === 0) {
       setTerm(searchTerm);
       setBooks([]);
@@ -52,6 +56,10 @@ export default function Home() {
     setBooks([]);
   };
 
+  const getBook = (bookId) => {
+    history.push(`/${bookId}`);
+  };
+
   return (
     <Container fluid="xl" className={`min-vh-100 ${styles.bookflixWrapper}`}>
       <Notifications />
@@ -71,6 +79,7 @@ export default function Home() {
           books={books}
           activePage={actualPage}
           pageClick={(event, page) => handlePage(event, page)}
+          getBook={(bookId) => getBook(bookId)}
         />
       </Row>
     </Container>

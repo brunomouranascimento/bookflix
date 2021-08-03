@@ -1,4 +1,5 @@
 import React from "react";
+
 import Pagination from "react-bootstrap/Pagination";
 
 import Book from "../Book/Book";
@@ -7,7 +8,13 @@ export default function BooksList(props) {
   return (
     <div>
       {props.books &&
-        props.books.map((book) => <Book key={book.id} book={book} />)}
+        props.books.map((book) => (
+          <Book
+            key={book.id}
+            book={book}
+            onClick={() => props.getBook(book.id)}
+          />
+        ))}
       {props.books?.length > 0 && (
         <Pagination className="justify-content-md-center">
           <Pagination.First onClick={props.goFirst} />
@@ -15,7 +22,7 @@ export default function BooksList(props) {
           {Array.apply(null, { length: Math.ceil(props.totalBooks / 20) }).map(
             (e, i) => (
               <Pagination.Item
-                onClick={(event) => props.pageClick(event, i + 1)}
+                onClick={() => props.pageClick(i + 1)}
                 key={i}
                 active={props.activePage === i + 1}
               >
