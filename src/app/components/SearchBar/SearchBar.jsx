@@ -22,10 +22,12 @@ export default function SearchBar(props) {
           }
         />
       </InputGroup>
-      <div className="d-flex justify-content-center mb-4">
+      <div
+        className={`d-flex justify-content-center mb-4 ${styles.buttonWrapper}`}
+      >
         <Button
           variant="warning"
-          className="px-4 mr-3"
+          className="px-4"
           onClick={() => props.getFavorites()}
         >
           Favoritos
@@ -50,7 +52,7 @@ export default function SearchBar(props) {
         <Button
           onClick={() => term !== "" && props.onSearch(term)}
           variant="primary"
-          className="ml-3 px-4"
+          className="px-4"
         >
           Buscar
         </Button>{" "}

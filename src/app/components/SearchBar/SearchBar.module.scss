@@ -7,4 +7,22 @@
       max-width: 50vh;
     }
   }
+  .buttonWrapper {
+    button {
+      margin-right: 15px;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .searchBar {
+    .buttonWrapper {
+      flex-direction: column;
+
+      button {
+        margin-right: 0;
+        margin-bottom: 5px;
+      }
+    }
+  }
 }

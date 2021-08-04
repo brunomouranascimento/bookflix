@@ -11,8 +11,10 @@
       border-bottom: 0;
     }
 
-    .favButton {
-      z-index: 2;
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-content: center;
     }
   }
 }

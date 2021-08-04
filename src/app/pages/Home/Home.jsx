@@ -89,11 +89,16 @@ export default function Home() {
 
   const getFavoriteBooks = () => {
     const favorites = getFavorites();
-    setBooks(favorites);
-    setTotalBooks(favorites.length);
-    setActualPage(1);
-    setShowingFavorites(true);
-    history.push("/favorites/books");
+    if (favorites.length) {
+      setLoadingParams(false);
+      setBooks([]);
+      setBooks(favorites);
+      setTotalBooks(favorites.length);
+      setActualPage(1);
+      setShowingFavorites(true);
+    } else {
+      notify.show("Você ainda não adicionou nenhum livro favorito", "warning");
+    }
   };
 
   return (

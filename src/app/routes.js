@@ -11,7 +11,6 @@ const Routes = () => (
     <Switch>
       <ProviderContexts>
         <Route path="/results/:searchTerms/:page" exact component={Home} />
-        <Route path="/favorites/books" exact component={Home} />
         <Route path="/:id" exact component={Book} />
         <Route path="/" exact component={Home} />
       </ProviderContexts>

@@ -42,7 +42,7 @@ export default function Book(props) {
             </Col>
           </Row>
         </Col>
-        <Col className={`${styles.favButton} mt-3`}>
+        <Col className={`${styles.controls} mt-3`}>
           {!props.hideFavButton && (
             <Button
               variant="warning"
