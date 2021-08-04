@@ -4,12 +4,17 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Book from "./pages/Book/Book";
 
+import ProviderContexts from "./contexts/ProviderContexts";
+
 const Routes = () => (
   <Router>
     <Switch>
-      <Route path="/results/:searchTerms/:page" component={Home} />
-      <Route path="/:id" component={Book} />
-      <Route path="/" component={Home} />
+      <ProviderContexts>
+        <Route path="/results/:searchTerms/:page" exact component={Home} />
+        <Route path="/favorites/books" exact component={Home} />
+        <Route path="/:id" exact component={Book} />
+        <Route path="/" exact component={Home} />
+      </ProviderContexts>
     </Switch>
   </Router>
 );

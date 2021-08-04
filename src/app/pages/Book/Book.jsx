@@ -87,7 +87,7 @@ export default function Book() {
         variant="primary"
         onClick={() => back()}
       >
-        <i class="fas fa-chevron-left mr-3"></i>
+        <i className="fas fa-chevron-left mr-3"></i>
         <i className="fas fa-home"></i>
       </Button>
     </Container>

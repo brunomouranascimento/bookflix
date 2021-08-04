@@ -43,9 +43,15 @@ export default function Book(props) {
           </Row>
         </Col>
         <Col className={`${styles.favButton} mt-3`}>
-          <Button variant="warning" className="ml-3 px-4">
-            Favoritar
-          </Button>{" "}
+          {!props.hideFavButton && (
+            <Button
+              variant="warning"
+              className="ml-3 px-4"
+              onClick={() => props.addFavorite(props.book)}
+            >
+              Favoritar
+            </Button>
+          )}
           <Button
             variant="primary"
             className="ml-3 px-4"

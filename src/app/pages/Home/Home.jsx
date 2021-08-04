@@ -11,6 +11,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import BooksList from "../../components/BooksList/BooksList";
 
 import { booksService } from "../../services/book.services";
+import useBooks from "../../hooks/useBooks";
 
 export default function Home() {
   const [term, setTerm] = useState("");
@@ -18,7 +19,9 @@ export default function Home() {
   const [totalBooks, setTotalBooks] = useState(0);
   const [actualPage, setActualPage] = useState(1);
   const [loadingParams, setLoadingParams] = useState(false);
+  const [showingFavorites, setShowingFavorites] = useState(false);
 
+  const { addFavorite, getFavorites } = useBooks();
   const { searchTerms, page } = useParams();
 
   const history = useHistory();
@@ -29,7 +32,6 @@ export default function Home() {
 
   const search = useCallback(
     async (searchTerm, page = 1) => {
-      history.push(`/results/${searchTerm}/${page}`);
       const response = await booksService.searchBooks(
         searchTerm,
         getStartIndex(page)
@@ -42,6 +44,7 @@ export default function Home() {
         setBooks(response.items);
         setTotalBooks(response.totalItems);
         setActualPage(Number(page));
+        history.push(`/results/${searchTerm}/${page}`);
       } else if (response.totalItems === 0) {
         setTerm(searchTerm);
         setBooks([]);
@@ -84,6 +87,15 @@ export default function Home() {
     checkRouteParam();
   }, [checkRouteParam]);
 
+  const getFavoriteBooks = () => {
+    const favorites = getFavorites();
+    setBooks(favorites);
+    setTotalBooks(favorites.length);
+    setActualPage(1);
+    setShowingFavorites(true);
+    history.push("/favorites/books");
+  };
+
   return (
     <Container fluid="xl" className={`min-vh-100 ${styles.bookflixWrapper}`}>
       <Notifications />
@@ -98,6 +110,7 @@ export default function Home() {
             hasResult={books.length > 0}
             clearResults={() => clearResults()}
             term={term}
+            getFavorites={() => getFavoriteBooks()}
           />
           <BooksList
             totalBooks={totalBooks}
@@ -105,6 +118,9 @@ export default function Home() {
             activePage={actualPage}
             pageClick={(event, page) => handlePage(event, page)}
             getBook={(bookId) => getBook(bookId)}
+            addFavorite={(book) => addFavorite(book)}
+            hidePagination={showingFavorites}
+            showingFavorites={showingFavorites}
           />
         </Row>
       )}
